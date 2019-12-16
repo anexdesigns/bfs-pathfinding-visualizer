@@ -59,7 +59,7 @@ export function breadthFirstSearch(startNode, finishNode, grid) {
 
                if (newLocation.status === 'Goal') {
                     shortestPath = newLocation.path
-                    return
+                    return true
                }
           }
 
