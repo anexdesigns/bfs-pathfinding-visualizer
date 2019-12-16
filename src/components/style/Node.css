@@ -63,7 +63,7 @@
 .node-shortest-path {
      background: rgba(0, 190, 218, 0.75);
      animation-name: shortestPath;
-     animation-duration: 1.5s;
+     animation-duration: .25s;
      animation-timing-function: ease-out;
      animation-delay: 0;
      animation-direction: alternate;
