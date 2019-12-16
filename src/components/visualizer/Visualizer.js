@@ -74,14 +74,16 @@ export default class PathfindingVisualizer extends React.Component {
      }
 
      // First animates the visited nodes, then the shortest path.
-     animateBFS(visitedNodesInOrder, shortestPathNodes) {
+     animateBFS(visitedNodesInOrder, shortestPathNodes, solution) {
           for (let i = 0; i < visitedNodesInOrder.length; i++) {
                // If animation is done, call the worker function that animates shortest path
-               if (i === visitedNodesInOrder.length - 1) { // MAYBE DONT NEED THIS
-                    setTimeout(() => {
-                         this.animateShortestPath(shortestPathNodes);
-                    }, 45 * i);
-                    return;
+               if (i === visitedNodesInOrder.length - 1) {
+                    if (solution) {
+                         setTimeout(() => {
+                              this.animateShortestPath(shortestPathNodes);
+                         }, 45 * i);
+                         return;
+                    }
                }
                // Animates visited nodes
                setTimeout(() => {
@@ -103,15 +105,18 @@ export default class PathfindingVisualizer extends React.Component {
      }
 
      visualizeBFS() {
-          const { grid } = this.state;
+          // Checks to see if user picked a start node and finish node
+          if (START_NODE_ROW && START_NODE_COL && FINISH_NODE_ROW && FINISH_NODE_COL) {
+               const { grid } = this.state;
 
-          const startNode = grid[START_NODE_ROW][START_NODE_COL]
-          const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL]
+               const startNode = grid[START_NODE_ROW][START_NODE_COL]
+               const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL]
 
-          // Main algorithm that finds shortest path and the nodes that were visited in order
-          breadthFirstSearch(startNode, finishNode, grid)
+               // Returns true or false depending if a shortest path was found
+               const solution = breadthFirstSearch(startNode, finishNode, grid)
 
-          this.animateBFS(visitedNodesArray, shortestPath)
+               this.animateBFS(visitedNodesArray, shortestPath, solution);
+          }
      }
 
      render() {
@@ -225,4 +230,3 @@ const getNewGridWithFinishToggled = (grid, row, column) => {
      FINISH_NODE_COL = column;
      return newGrid;
 }
-
