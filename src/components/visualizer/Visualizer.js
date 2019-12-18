@@ -40,11 +40,17 @@ export default class PathfindingVisualizer extends React.Component {
      }
 
      createStartNode() {
-          this.setState({ createStartNode: true, createFinishNode: false })
+          // Create a start node only if there is NOT already a start node
+          if (!START_NODE_ROW && !START_NODE_COL) {
+               this.setState({ createStartNode: true, createFinishNode: false })
+          }
      }
 
      createFinishNode() {
-          this.setState({ createFinishNode: true, createStartNode: false })
+          // Create a finish node only if there is NOT already a finish node
+          if (!FINISH_NODE_ROW && !FINISH_NODE_COL) {
+               this.setState({ createFinishNode: true, createStartNode: false })
+          }
      }
 
      // When the mouse is pushed down on the grid, create either a wall, start, or finish
@@ -52,9 +58,11 @@ export default class PathfindingVisualizer extends React.Component {
           if (this.state.createStartNode) {
                const newGrid = getNewGridWithStartToggled(this.state.grid, row, column)
                this.setState({ grid: newGrid, createStartNode: false });
+
           } else if (this.state.createFinishNode) {
                const newGrid = getNewGridWithFinishToggled(this.state.grid, row, column)
                this.setState({ grid: newGrid, createFinishNode: false });
+
           } else {
                const newGrid = getNewGridWithWallToggled(this.state.grid, row, column);
                this.setState({ grid: newGrid, mouseIsPressed: true });
