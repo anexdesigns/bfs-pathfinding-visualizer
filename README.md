@@ -19,6 +19,9 @@ A web application that finds and animates the shortest path between two nodes.
 * [React](https://reactjs.org/) - UI
 * [JavaScript](https://www.javascript.com/)
 
+## View Live Site
+[Visit Here](https://condescending-thompson-2c477a.netlify.com/)
+
 
 # Demo
 ![](pathfinder-demo.gif)
